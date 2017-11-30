@@ -20,8 +20,8 @@
         <div class="container">
             <label> Nivel de estudios</label>
             <select ng-model="search.studies">
-            <option value="">-- Filtrar --</option>
-            <option value="{{study}}" ng-repeat="study in studiesOptions">{{study}}</option>
+                <option value="">-- Filtrar --</option>
+                <option value="{{study}}" ng-repeat="study in studiesOptions">{{study}}</option>
             </select>
             <label> Nombre</label>
             <input class="search-input" ng-model="search.name" type="text" placeholder="Nombre ..." />

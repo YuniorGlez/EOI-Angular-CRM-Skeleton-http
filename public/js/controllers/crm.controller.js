@@ -37,15 +37,15 @@
 
         function cleanNewUser() {
             $scope.newUser = {};
-            var form = $scope.editForm;
-            form.$setUntouched();
-            form.$setPristine();
+            $scope.editForm.$setUntouched();
+            $scope.editForm.$setPristine();
         }
 
         function cancelButton() {
             if ($scope.editing) $scope.editing = false;
             cleanNewUser();
         }
+
         function createNewUser() {
             if (userCompleted()) {
                 $scope.newUser.id = randId();
@@ -71,27 +71,22 @@
         }
 
         function removeUser(user) {
-            var confirmation = prompt('Seguro que deseas borrar al usuario ?');
+            var confirmation = prompt(`Seguro que deseas borrar al usuario ? Introduce ${user.name} para confirmar`);
             if (confirmation == user.name) {
-                $scope.users.forEach(function (userToRemove, idx) {
-                    if (user.id == userToRemove.id) {
-                        $scope.users.splice(idx, 1);
-                    }
-                });
+                $scope.users = $scope.users.filter(u => u.id != user.id);
                 updateLocalStorage();
             }
         }
 
         //////// Storage /////
         function loadLocalStorage() {
-            var customers = window.localStorage.getItem('customers');
-            if (customers) {
-                $scope.users = JSON.parse(customers);
+            if ('customers' in localStorage) {
+                $scope.users = JSON.parse(localStorage.getItem('customers'));
             }
         }
 
         function updateLocalStorage() {
-            window.localStorage.setItem('customers', JSON.stringify($scope.users));
+            localStorage.setItem('customers', JSON.stringify($scope.users));
         }
         ///////// end Storage ////////
 
